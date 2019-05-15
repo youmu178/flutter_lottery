@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lottery/api/api_index.dart';
+import 'package:flutter_lottery/pages/widget/widget.dart';
 import 'package:flutter_lottery/res/colors.dart';
 import 'package:flutter_lottery/util/utils.dart';
 
@@ -8,6 +10,7 @@ class LotteryMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ApiRepository.getInstance().queryLotteryList();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -79,6 +82,15 @@ class LotteryMain extends StatelessWidget {
                     ),
                   );
                 }).toList(),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 9),
+              child: Row(
+                children: <Widget>[
+                  Item(text: "历史开奖",),
+                  Item(text: "中奖计算器",)
+                ],
               ),
             )
           ],

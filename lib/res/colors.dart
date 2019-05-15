@@ -9,4 +9,5 @@ class ResColor {
   static const Color color_ED8431 = Color(0xFFED8431);
   static const Color color_F63F3F = Color(0xFFF63F3F);
   static const Color color_508CEE = Color(0xFF508CEE);
+  static const Color color_F4F4F4 = Color(0xFFF4F4F4);
 }
