@@ -50,69 +50,86 @@ class LotteryMain extends StatelessWidget {
     return Card(
       elevation: 5,
       margin: EdgeInsets.only(top: 15),
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: Stack(
           children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Text(info.lotteryName,
-                    style:
-                        TextStyle(color: ResColor.color_333333, fontSize: 16)),
-                Container(
-                  padding: EdgeInsets.only(left: 8, right: 12),
-                  child: Text(info.lotteryNo,
-                      style: TextStyle(
-                          color: ResColor.color_B3B3B3, fontSize: 13)),
-                ),
-                Text(info.lotteryDate,
-                    style:
-                        TextStyle(color: ResColor.color_B3B3B3, fontSize: 13))
-              ],
-            ),
             Container(
-              padding: EdgeInsets.only(top: 9),
-              child: Row(
-                children: info.lotteryRes.split(',').map((number) {
-                  ++numberIndex;
-                  return Container(
-                    margin: EdgeInsets.only(right: 4),
-                    child: ClipOval(
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        color: Utils.getLotteryItemColor(
-                            numberIndex, info.lotteryId),
-                        child: Center(
-                          child: Text(
-                            number,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 9),
-              child: Row(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Item(
-                    text: "历史开奖",
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Text(info.lotteryName,
+                          style:
+                        TextStyle(color: ResColor.color_333333, fontSize: 16)),
+                      Container(
+                        padding: EdgeInsets.only(left: 8, right: 12),
+                        child: Text(info.lotteryNo,
+                            style: TextStyle(
+                                color: ResColor.color_B3B3B3, fontSize: 13)),
+                      ),
+                      Text(info.lotteryDate + " " +
+                          Utils.getWeekDay(info.lotteryDate),
+                          style:
+                        TextStyle(color: ResColor.color_B3B3B3, fontSize: 13))
+                    ],
                   ),
-                  Item(
-                    text: "中奖计算器",
+                  Container(
+                    padding: EdgeInsets.only(top: 9),
+                    child: Row(
+                      children: info.lotteryRes.split(',').map((number) {
+                        ++numberIndex;
+                        return Container(
+                          margin: EdgeInsets.only(right: 4),
+                          child: ClipOval(
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              color: Utils.getLotteryItemColor(
+                                  numberIndex, info.lotteryId),
+                              child: Center(
+                                child: Text(
+                                  number,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 14),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 9),
+                    child: Row(
+                      children: <Widget>[
+                        Item(
+                          text: "历史开奖",
+                        ),
+                        Item(
+                          text: "中奖计算器",
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),
+            ),
+            Positioned(
+              right: 0,
+              top: 8,
+              child: Offstage(
+                  offstage: Utils.isToday(info.lotteryDate),
+                  child: Image(
+                      width: 30,
+                      height: 30,
+                      image: AssetImage("assets/images/ic_kj_flag.png"))),
             )
+
           ],
-        ),
-      ),
+        )
     );
   }
 }

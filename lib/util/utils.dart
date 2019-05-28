@@ -38,4 +38,46 @@ class Utils {
   static showToast(String msg) {
 //    Fluttertoast.showToast(msg: msg, backgroundColor: ResColor.color_666666);
   }
+
+  static String getWeekDay(String dateStr) {
+    DateTime dateTime = DateTime.parse(dateStr);
+    if (dateTime == null) return null;
+    String weekday;
+    switch (dateTime.weekday) {
+      case 1:
+        weekday = "星期一";
+        break;
+      case 2:
+        weekday = "星期二";
+        break;
+      case 3:
+        weekday = "星期三";
+        break;
+      case 4:
+        weekday = "星期四";
+        break;
+      case 5:
+        weekday = "星期五";
+        break;
+      case 6:
+        weekday = "星期六";
+        break;
+      case 7:
+        weekday = "星期日";
+        break;
+      default:
+        break;
+    }
+    return weekday;
+  }
+
+  static bool isToday(String dateStr, {bool isUtc = false}) {
+    DateTime dateTime = DateTime.parse(dateStr);
+    int milliseconds = dateTime.millisecondsSinceEpoch;
+    if (milliseconds == null || milliseconds == 0) return false;
+    DateTime old =
+    DateTime.fromMillisecondsSinceEpoch(milliseconds, isUtc: isUtc);
+    DateTime now = isUtc ? DateTime.now().toUtc() : DateTime.now().toLocal();
+    return old.year == now.year && old.month == now.month && old.day == now.day;
+  }
 }
