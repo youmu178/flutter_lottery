@@ -2,7 +2,8 @@
 
 彩票开奖信息
 
-## screenshot
+## Screenshot
+![](screenshot/694C622BC12224B8B9DDF2152464294D.jpg)
 
 ## Getting Started
 
