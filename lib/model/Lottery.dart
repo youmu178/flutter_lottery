@@ -23,6 +23,19 @@ class Lottery {
 
 }
 
+class LotteryInfo {
+
+  String lotteryId;
+  String lotteryName;
+  String lotteryNo;
+  String lotteryDate;
+  String lotteryRes;
+
+  LotteryInfo(
+      {this.lotteryId, this.lotteryName, this.lotteryNo, this.lotteryDate, this.lotteryRes});
+
+}
+
 class ResultBean {
   String lotteryId;
   String lotteryName;

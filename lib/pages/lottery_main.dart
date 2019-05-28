@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lottery/api/api_index.dart';
+import 'package:flutter_lottery/bloc/BlocProvider.dart';
+import 'package:flutter_lottery/bloc/MainBloc.dart';
+import 'package:flutter_lottery/model/Lottery.dart';
 import 'package:flutter_lottery/pages/widget/widget.dart';
 import 'package:flutter_lottery/res/colors.dart';
 import 'package:flutter_lottery/util/utils.dart';
 
+
 class LotteryMain extends StatelessWidget {
-  final String numbers = "07,10,11,15,24,26,11";
+//  final String numbers = "07,10,11,15,24,26,11";
   int numberIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    ApiRepository.getInstance().queryLotteryList();
+    MainBloc _mainBloc = BlocProvider.of<MainBloc>(context);
+    _mainBloc.getLotteryInfo();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -23,17 +27,25 @@ class LotteryMain extends StatelessWidget {
       ),
       body: Container(
           height: double.infinity,
-          child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: 7,
-              padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-              itemBuilder: (BuildContext context, int index) {
-                return getItem(context);
-              })),
+        child: StreamBuilder<List<LotteryInfo>>(
+          initialData: List<LotteryInfo>(),
+          stream: _mainBloc.lotteryInfoStream,
+          builder: (BuildContext context,
+              AsyncSnapshot<List<LotteryInfo>> snapshot) {
+            return ListView.builder(
+                shrinkWrap: true,
+                itemCount: snapshot.data.length,
+                padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+                itemBuilder: (BuildContext context, int index) {
+                  return getItem(context, snapshot.data[index]);
+                });
+          },
+        ),
+      ),
     );
   }
 
-  Widget getItem(BuildContext context) {
+  Widget getItem(BuildContext context, LotteryInfo info) {
     numberIndex = 0;
     return Card(
       elevation: 5,
@@ -46,16 +58,16 @@ class LotteryMain extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                Text("双色球",
+                Text(info.lotteryName,
                     style:
                         TextStyle(color: ResColor.color_333333, fontSize: 16)),
                 Container(
                   padding: EdgeInsets.only(left: 8, right: 12),
-                  child: Text("19054",
+                  child: Text(info.lotteryNo,
                       style: TextStyle(
                           color: ResColor.color_B3B3B3, fontSize: 13)),
                 ),
-                Text("2019-05-12 星期日",
+                Text(info.lotteryDate,
                     style:
                         TextStyle(color: ResColor.color_B3B3B3, fontSize: 13))
               ],
@@ -63,15 +75,16 @@ class LotteryMain extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(top: 9),
               child: Row(
-                children: numbers.split(',').map((number) {
-                  ++ numberIndex;
+                children: info.lotteryRes.split(',').map((number) {
+                  ++numberIndex;
                   return Container(
                     margin: EdgeInsets.only(right: 4),
                     child: ClipOval(
                       child: Container(
                         width: 30,
                         height: 30,
-                        color: numberIndex <= Utils.getLotteryItemRedCount("ssq") ? ResColor.color_F63F3F : ResColor.color_508CEE,
+                        color: Utils.getLotteryItemColor(
+                            numberIndex, info.lotteryId),
                         child: Center(
                           child: Text(
                             number,
@@ -88,8 +101,12 @@ class LotteryMain extends StatelessWidget {
               padding: EdgeInsets.only(top: 9),
               child: Row(
                 children: <Widget>[
-                  Item(text: "历史开奖",),
-                  Item(text: "中奖计算器",)
+                  Item(
+                    text: "历史开奖",
+                  ),
+                  Item(
+                    text: "中奖计算器",
+                  )
                 ],
               ),
             )

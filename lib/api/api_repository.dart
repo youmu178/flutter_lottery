@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_lottery/api/api.dart';
+import 'package:flutter_lottery/model/Lottery.dart';
 import 'package:flutter_lottery/res/consts.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -32,7 +33,17 @@ class ApiRepository {
     return baseResp;
   }
 
-  queryLotteryList() {
+  /**
+   * 获取首页彩票开奖列表
+   */
+  Observable<List<Response<dynamic>>> queryLotteryList() {
+    Observable<List<Response<dynamic>>> baseResp = Observable.fromFuture(
+        queryLotteryList_());
+    return baseResp;
+  }
+
+  Future queryLotteryList_() {
+    List<LotteryInfo> lotteryList;
     Future<List<Response>> resp = Future.wait([
       _dio.get(Api.LOTTERY_QUERY, queryParameters: {
         "lottery_id": Const.SSQ,
@@ -70,14 +81,17 @@ class ApiRepository {
         "key": Api.KEY
       }),
     ]);
-    resp.then((data) {
-      data.forEach((data) {
-        var result = data.data['result'];
-        print(result['lottery_name']);
-        print(result['lottery_no']);
-        print(result['lottery_date']);
-        print(result['lottery_res']);
-      });
-    });
+    return resp;
+//    resp.then((data) {
+//      lotteryList = data.map((data) {
+//        var result = data.data['result'];
+//        return LotteryInfo(lotteryId: result['lottery_id'],
+//            lotteryName: result['lottery_name'],
+//            lotteryNo: result['lottery_no'],
+//            lotteryDate: result['lottery_date'],
+//            lotteryRes: result['lottery_res']);
+//      }).toList();
+//      return lotteryList;
+//    });
   }
 }
