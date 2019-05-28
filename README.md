@@ -4,7 +4,7 @@
 
 ## Screenshot
 ![](screenshot/694C622BC12224B8B9DDF2152464294D.jpg)
-<img src="screenshot/694C622BC12224B8B9DDF2152464294D.jpg" width="1080" align=center />
+<img src="screenshot/694C622BC12224B8B9DDF2152464294D.jpg" width="720" align=center />
 
 ## Getting Started
 
