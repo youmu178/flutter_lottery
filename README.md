@@ -2,6 +2,8 @@
 
 彩票开奖信息
 
+## screenshot
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
