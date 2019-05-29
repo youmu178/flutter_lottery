@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lottery/res/colors.dart';
 import 'package:flutter_lottery/res/consts.dart';
-//import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 class Utils {
@@ -36,7 +36,39 @@ class Utils {
   }
 
   static showToast(String msg) {
-//    Fluttertoast.showToast(msg: msg, backgroundColor: ResColor.color_666666);
+    Fluttertoast.showToast(msg: msg, backgroundColor: ResColor.color_666666);
+  }
+
+  static bool isShowFlag(String lottery) {
+    String week = getWeekDay(DateTime.now().toLocal().toIso8601String());
+    switch (lottery) {
+      case Const.SSQ:
+        if (week == "星期二" || week == "星期四" || week == "星期日") {
+          return true;
+        }
+        break;
+      case Const.DLT:
+        if (week == "星期一" || week == "星期六" || week == "星期三") {
+          return true;
+        }
+        break;
+      case Const.QLC:
+        if (week == "星期一" || week == "星期五" || week == "星期三") {
+          return true;
+        }
+        break;
+      case Const.QXC:
+        if (week == "星期二" || week == "星期五" || week == "星期日") {
+          return true;
+        }
+        break;
+      case Const.FCSD:
+      case Const.PLS:
+      case Const.PLW:
+        return true;
+        break;
+    }
+    return false;
   }
 
   static String getWeekDay(String dateStr) {

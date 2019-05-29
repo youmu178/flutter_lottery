@@ -27,8 +27,8 @@ class MainBloc implements BlocBase {
     }).listen((onData) {
       List<LotteryInfo> lotteryList = onData.map((data) {
         var result = data.data['result'];
-        if (result == null)
-          return List<LotteryInfo>();
+//        if (result == null)
+//          return List<LotteryInfo>();
         return LotteryInfo(
             lotteryId: result['lottery_id'],
             lotteryName: result['lottery_name'],

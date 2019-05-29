@@ -8,7 +8,6 @@ import 'package:flutter_lottery/util/utils.dart';
 
 
 class LotteryMain extends StatelessWidget {
-//  final String numbers = "07,10,11,15,24,26,11";
   int numberIndex = 0;
 
   @override
@@ -121,7 +120,7 @@ class LotteryMain extends StatelessWidget {
               right: 0,
               top: 8,
               child: Offstage(
-                  offstage: Utils.isToday(info.lotteryDate),
+                  offstage: !Utils.isShowFlag(info.lotteryId),
                   child: Image(
                       width: 30,
                       height: 30,
