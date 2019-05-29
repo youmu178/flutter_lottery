@@ -25,18 +25,29 @@ class MainBloc implements BlocBase {
         Utils.showToast("加载失败，请检查网络连接");
       }
     }).listen((onData) {
-      List<LotteryInfo> lotteryList = onData.map((data) {
+      // {"resultcode":"112","reason":"超过每日可允许请求次数!","result":null,"error_code":10012}
+      bool isSuccess = true;
+      for (final data in onData) {
         var result = data.data['result'];
-//        if (result == null)
-//          return List<LotteryInfo>();
-        return LotteryInfo(
-            lotteryId: result['lottery_id'],
-            lotteryName: result['lottery_name'],
-            lotteryNo: result['lottery_no'],
-            lotteryDate: result['lottery_date'],
-            lotteryRes: result['lottery_res']);
-      }).toList();
-      _lotteryInfoSink.add(lotteryList);
+        if (result == null) {
+          isSuccess = false;
+          break;
+        }
+      }
+      if (isSuccess) {
+        List<LotteryInfo> lotteryList = onData.map((data) {
+          var result = data.data['result'];
+          return LotteryInfo(
+              lotteryId: result['lottery_id'],
+              lotteryName: result['lottery_name'],
+              lotteryNo: result['lottery_no'],
+              lotteryDate: result['lottery_date'],
+              lotteryRes: result['lottery_res']);
+        }).toList();
+        _lotteryInfoSink.add(lotteryList);
+      } else {
+        _lotteryInfoSink.add(List<LotteryInfo>());
+      }
     });
   }
 

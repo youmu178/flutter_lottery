@@ -3,8 +3,9 @@ import 'package:flutter_lottery/res/colors.dart';
 
 class Item extends StatelessWidget {
   final String text;
+  final GestureTapCallback callback;
 
-  Item({Key key, this.text}) : super(key: key);
+  Item({Key key, this.text, this.callback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class Item extends StatelessWidget {
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(4.0)),
         child: InkWell(
-          onTap: () {},
+          onTap: callback,
           child: Container(
             color: ResColor.color_F4F4F4,
             height: 30,

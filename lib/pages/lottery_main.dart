@@ -6,6 +6,7 @@ import 'package:flutter_lottery/pages/widget/widget.dart';
 import 'package:flutter_lottery/res/colors.dart';
 import 'package:flutter_lottery/util/utils.dart';
 
+import 'lottery_history.dart';
 
 class LotteryMain extends StatelessWidget {
   int numberIndex = 0;
@@ -106,6 +107,10 @@ class LotteryMain extends StatelessWidget {
                       children: <Widget>[
                         Item(
                           text: "历史开奖",
+                          callback: () {
+                            NavigatorUtil.pushPage(context,
+                                LotteryHistory(lotteryId: info.lotteryId));
+                          },
                         ),
                         Item(
                           text: "中奖计算器",

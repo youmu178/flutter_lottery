@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lottery/res/colors.dart';
 import 'package:flutter_lottery/res/consts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+export 'util_navigator.dart';
 
 class Utils {
   static getLotteryItemRedCount(String lottery) {

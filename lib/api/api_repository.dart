@@ -42,56 +42,38 @@ class ApiRepository {
     return baseResp;
   }
 
+  /**
+   *  历史开奖记录
+   */
+  Observable<Response<Map<String, dynamic>>> history(String lotteryId, int pageIndex) {
+    Observable baseResp = Observable.fromFuture(
+        _dio.get(Api.LOTTERY_HISTORY, queryParameters: {
+          "lottery_id": lotteryId,
+          "page_size": Api.PAGE_SIZE,
+          "page": pageIndex,
+          "key": Api.KEY
+        }));
+    return baseResp;
+  }
+
+  Future<Response> lottery(String lotteryId) {
+    return _dio.get(Api.LOTTERY_QUERY, queryParameters: {
+      "lottery_id": lotteryId,
+      "lottery_no": "",
+      "key": Api.KEY
+    });
+  }
+
   Future queryLotteryList_() {
-    List<LotteryInfo> lotteryList;
     Future<List<Response>> resp = Future.wait([
-      _dio.get(Api.LOTTERY_QUERY, queryParameters: {
-        "lottery_id": Const.SSQ,
-        "lottery_no": "",
-        "key": Api.KEY
-      }),
-      _dio.get(Api.LOTTERY_QUERY, queryParameters: {
-        "lottery_id": Const.DLT,
-        "lottery_no": "",
-        "key": Api.KEY
-      }),
-      _dio.get(Api.LOTTERY_QUERY, queryParameters: {
-        "lottery_id": Const.QLC,
-        "lottery_no": "",
-        "key": Api.KEY
-      }),
-      _dio.get(Api.LOTTERY_QUERY, queryParameters: {
-        "lottery_id": Const.QXC,
-        "lottery_no": "",
-        "key": Api.KEY
-      }),
-      _dio.get(Api.LOTTERY_QUERY, queryParameters: {
-        "lottery_id": Const.PLS,
-        "lottery_no": "",
-        "key": Api.KEY
-      }),
-      _dio.get(Api.LOTTERY_QUERY, queryParameters: {
-        "lottery_id": Const.PLW,
-        "lottery_no": "",
-        "key": Api.KEY
-      }),
-      _dio.get(Api.LOTTERY_QUERY, queryParameters: {
-        "lottery_id": Const.FCSD,
-        "lottery_no": "",
-        "key": Api.KEY
-      }),
+      lottery(Const.SSQ),
+      lottery(Const.DLT),
+      lottery(Const.QLC),
+      lottery(Const.QXC),
+      lottery(Const.PLS),
+      lottery(Const.PLW),
+      lottery(Const.FCSD),
     ]);
     return resp;
-//    resp.then((data) {
-//      lotteryList = data.map((data) {
-//        var result = data.data['result'];
-//        return LotteryInfo(lotteryId: result['lottery_id'],
-//            lotteryName: result['lottery_name'],
-//            lotteryNo: result['lottery_no'],
-//            lotteryDate: result['lottery_date'],
-//            lotteryRes: result['lottery_res']);
-//      }).toList();
-//      return lotteryList;
-//    });
   }
 }

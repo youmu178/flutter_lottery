@@ -4,4 +4,6 @@ class Api {
   static const String LOTTERY_QUERY = "query"; // 开奖结果查询
   static const String LOTTERY_HISTORY = "history"; //历史开奖结果查询
   static const String LOTTERY_BONUS = "bonus"; //中间计算器
+
+  static const String PAGE_SIZE = "20";
 }
