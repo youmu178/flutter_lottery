@@ -45,7 +45,7 @@ class ApiRepository {
   /**
    *  历史开奖记录
    */
-  Observable<Response<Map<String, dynamic>>> history(String lotteryId, int pageIndex) {
+  Observable<dynamic> history(String lotteryId, int pageIndex) {
     Observable baseResp = Observable.fromFuture(
         _dio.get(Api.LOTTERY_HISTORY, queryParameters: {
           "lottery_id": lotteryId,

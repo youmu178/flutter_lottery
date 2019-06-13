@@ -28,6 +28,33 @@ class Utils {
     }
     return count;
   }
+  static getLotteryName(String lottery) {
+    String name = "";
+    switch (lottery) {
+      case Const.SSQ:
+        name = "双色球";
+        break;
+      case Const.DLT:
+        name = "大乐透";
+        break;
+      case Const.QLC:
+        name = "七乐彩";
+        break;
+      case Const.QXC:
+        name = "七星彩";
+        break;
+      case Const.PLS:
+        name = "排列三";
+        break;
+      case Const.FCSD:
+        name = "福彩3D";
+        break;
+      case Const.PLW:
+        name = "排列五";
+        break;
+    }
+    return name;
+  }
 
   static getLotteryItemColor(int index, String lottery) {
     return index <= Utils.getLotteryItemRedCount(lottery)

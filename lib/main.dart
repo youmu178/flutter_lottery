@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lottery/bloc/BlocProvider.dart';
 import 'package:flutter_lottery/bloc/MainBloc.dart';
 import 'package:flutter_lottery/pages/lottery_main.dart';
+import 'package:flutter_lottery/pages/lottery_history.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocProvider<MainBloc>(
         bloc: MainBloc(),
-        child: LotteryMain(),
+        child: LotteryHistory(lotteryId: "ssq",),
       ),
     );
   }
