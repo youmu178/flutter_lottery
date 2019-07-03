@@ -34,6 +34,7 @@ class LotteryHistory extends StatelessWidget {
                   AsyncSnapshot<List<LotteryResListListBean>> snapshot) {
                 return ListView.builder(
                     shrinkWrap: true,
+                    physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: snapshot.data.length,
                     padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
                     itemBuilder: (BuildContext context, int index) {

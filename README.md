@@ -3,8 +3,7 @@
 彩票开奖信息
 
 ## Screenshot
-<!--![](screenshot/694C622BC12224B8B9DDF2152464294D.jpg)-->
-<img src="screenshot/main.jpg" width="320" />
+<img src="screenshot/main.webp" width="320" />
 
 ## Getting Started
 

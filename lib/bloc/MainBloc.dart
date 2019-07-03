@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_lottery/api/api_index.dart';
 import 'package:flutter_lottery/model/Lottery.dart';
@@ -63,6 +65,8 @@ class MainBloc implements BlocBase {
         }
       });
 
+  List<LotteryResListListBean> _historyList;
+
   Future refreshHistory(String lotteryId) async {
     await getLotteryHistory(lotteryId, 1);
     return;
@@ -70,9 +74,14 @@ class MainBloc implements BlocBase {
 
   /// 获取开奖历史列表
   getLotteryHistory(String lotteryId, int pageIndex) {
+    if (_historyList == null) {
+      _historyList = new List();
+    }
+    if (pageIndex == 1) {
+      _historyList.clear();
+    }
     ApiRepository.getInstance().history(lotteryId, pageIndex).doOnDone(() {
       print("doOnDone");
-
     }).doOnListen(() {
       print("doOnListen");
     }).doOnError((error, stacktrace) {
@@ -83,7 +92,8 @@ class MainBloc implements BlocBase {
       LotteryHistory lotteryHistory = LotteryHistory.fromJson(onData.data);
       var resultBean = lotteryHistory.result;
       if (resultBean != null && resultBean.lotteryResList.isNotEmpty) {
-        _lotteryHistorySink.add(resultBean.lotteryResList);
+        _historyList.addAll(resultBean.lotteryResList);
+        _lotteryHistorySink.add(UnmodifiableListView<LotteryResListListBean>(_historyList));
       } else {
         _lotteryHistorySink.add(new List<LotteryResListListBean>());
       }
