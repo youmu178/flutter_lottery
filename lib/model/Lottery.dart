@@ -1,14 +1,14 @@
 class Lottery {
   String reason;
   int errorCode;
-  ResultBean result;
+  LotteryResultBean result;
 
   Lottery({this.reason, this.errorCode, this.result});
 
   Lottery.fromJson(Map<String, dynamic> json) {    
     this.reason = json['reason'];
     this.errorCode = json['error_code'];
-    this.result = json['result'] != null ? ResultBean.fromJson(json['result']) : null;
+    this.result = json['result'] != null ? LotteryResultBean.fromJson(json['result']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -36,7 +36,7 @@ class LotteryInfo {
 
 }
 
-class ResultBean {
+class LotteryResultBean {
   String lotteryId;
   String lotteryName;
   String lotteryRes;
@@ -47,9 +47,9 @@ class ResultBean {
   String lotteryPoolAmount;
   List<LotteryPrizeListBean> lotteryPrize;
 
-  ResultBean({this.lotteryId, this.lotteryName, this.lotteryRes, this.lotteryNo, this.lotteryDate, this.lotteryExdate, this.lotterySaleAmount, this.lotteryPoolAmount, this.lotteryPrize});
+  LotteryResultBean({this.lotteryId, this.lotteryName, this.lotteryRes, this.lotteryNo, this.lotteryDate, this.lotteryExdate, this.lotterySaleAmount, this.lotteryPoolAmount, this.lotteryPrize});
 
-  ResultBean.fromJson(Map<String, dynamic> json) {    
+  LotteryResultBean.fromJson(Map<String, dynamic> json) {
     this.lotteryId = json['lottery_id'];
     this.lotteryName = json['lottery_name'];
     this.lotteryRes = json['lottery_res'];

@@ -28,6 +28,7 @@ class Utils {
     }
     return count;
   }
+
   static getLotteryName(String lottery) {
     String name = "";
     switch (lottery) {
