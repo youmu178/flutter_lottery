@@ -4,6 +4,8 @@
 
 ## Screenshot
 <img src="screenshot/main.webp" width="320" />
+<img src="screenshot/lottery_history.webp" width="320" />
+<img src="screenshot/lottery_detail.webp" width="320" />
 
 ## Getting Started
 

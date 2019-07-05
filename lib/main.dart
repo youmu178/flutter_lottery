@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocProvider<MainBloc>(
         bloc: MainBloc(),
-        child: LotteryHistory(lotteryId: "ssq",),
+        child: LotteryMain(),
+//          LotteryHistory(lotteryId: "ssq",)
       ),
     );
   }

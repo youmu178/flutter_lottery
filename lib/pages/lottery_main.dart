@@ -26,7 +26,7 @@ class LotteryMain extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
-          height: double.infinity,
+        height: double.infinity,
         child: StreamBuilder<List<LotteryInfo>>(
           initialData: List<LotteryInfo>(),
           stream: _mainBloc.lotteryInfoStream,
@@ -48,8 +48,8 @@ class LotteryMain extends StatelessWidget {
   Widget getItem(BuildContext context, LotteryInfo info) {
     numberIndex = 0;
     return Card(
-      elevation: 5,
-      margin: EdgeInsets.only(top: 15),
+        elevation: 5,
+        margin: EdgeInsets.only(top: 15),
         child: Stack(
           children: <Widget>[
             Container(
@@ -61,18 +61,20 @@ class LotteryMain extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Text(info.lotteryName,
-                          style:
-                        TextStyle(color: ResColor.color_333333, fontSize: 16)),
+                          style: TextStyle(
+                              color: ResColor.color_333333, fontSize: 16)),
                       Container(
                         padding: EdgeInsets.only(left: 8, right: 12),
                         child: Text(info.lotteryNo,
                             style: TextStyle(
                                 color: ResColor.color_B3B3B3, fontSize: 13)),
                       ),
-                      Text(info.lotteryDate + " " +
-                          Utils.getWeekDay(info.lotteryDate),
-                          style:
-                        TextStyle(color: ResColor.color_B3B3B3, fontSize: 13))
+                      Text(
+                          info.lotteryDate +
+                              " " +
+                              Utils.getWeekDay(info.lotteryDate),
+                          style: TextStyle(
+                              color: ResColor.color_B3B3B3, fontSize: 13))
                     ],
                   ),
                   Container(
@@ -108,8 +110,12 @@ class LotteryMain extends StatelessWidget {
                         Item(
                           text: "历史开奖",
                           callback: () {
-                            NavigatorUtil.pushPage(context,
-                                LotteryHistory(lotteryId: info.lotteryId));
+                            NavigatorUtil.pushPage(
+                                context,
+                                BlocProvider<MainBloc>(
+                                    bloc: MainBloc(),
+                                    child: LotteryHistory(
+                                        lotteryId: info.lotteryId)));
                           },
                         ),
                         Item(
@@ -131,9 +137,7 @@ class LotteryMain extends StatelessWidget {
                       height: 30,
                       image: AssetImage("assets/images/ic_kj_flag.png"))),
             )
-
           ],
-        )
-    );
+        ));
   }
 }
